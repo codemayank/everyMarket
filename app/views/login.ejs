@@ -1,0 +1,32 @@
+<% include ./partials/header %>
+
+<div class="container">
+  <h1>Login</h1>
+  <form action="/login" method = "POST">
+    <div class="row">
+      <div class="col-xs-12 col-md-4">
+        <div class="form-group">
+          <label for="username">UserName</label>
+          <input type="username" class="form-control" name = "username" id="" placeholder="Username">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-md-4">
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name = "password" id="" placeholder="Password">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-md-4">
+            <button type = "submit" value="login!" class="btn btn-primary">Submit</button>
+      </div>
+      <div class="col-xs-12 col-md-4">
+            <a href = "/forgot" type = "submit" value="login!" class="btn btn-primary">Forgot Password</a>
+      </div>
+    </div>
+  </form>
+</div>
+<% include ./partials/footer %>

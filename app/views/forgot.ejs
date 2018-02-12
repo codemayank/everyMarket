@@ -1,0 +1,22 @@
+<% include ./partials/header %>
+
+<div class="container">
+  <h1>Forgot Password</h1>
+  <form action="/forgot" method = "POST">
+    <div class="row">
+      <div class="col-xs-12 col-md-4">
+        <div class="form-group">
+          <label for="username">email</label>
+          <input type="email" class="form-control" name = "email" id="" placeholder="Username">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-md-4">
+            <button type = "submit" value="login!" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<% include ./partials/footer %>

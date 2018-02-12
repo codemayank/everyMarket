@@ -1,0 +1,20 @@
+<% include ../partials/header %>
+<div class = "container">
+    <div class = "row">
+        <%products.forEach(function(product){%>
+        <div class = "col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <a href="/products/show-product/<%=product._id%>"><img src = "<%=product.image%>" class="img-responsive"></a>
+            <div class = "caption">
+                <h4><%=product.name%></h4>
+                <div class="clearfix">
+                  <div class="price pull-left"><i class="fa fa-rupee-sign"></i><%= product.price%></div>
+                  <a href="/cart/add-to-cart/<%=product.id%>" class="btn btn-success pull-right">Add to Cart</a>
+                </div>
+            </div>
+            </div>
+        </div>
+        <% }) %>
+    </div>
+</div>
+<% include ../partials/footer %>

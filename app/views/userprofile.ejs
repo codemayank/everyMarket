@@ -1,0 +1,38 @@
+<% include ./partials/header %>
+<table class="table">
+  <tr>
+    <td>Username : </td>
+    <td><%= currentUser.username %></td>
+  </tr>
+  <tr>
+    <td>First Name : </td>
+    <td><%= currentUser.firstName %></td>
+  </tr>
+  <tr>
+    <td>Last Name : </td>
+    <td><%= currentUser.lastName %></td>
+  </tr>
+  <tr>
+    <td>Email : </td>
+    <td><%= currentUser.email %></td>
+  </tr>
+  <tr>
+    <td>DOB : </td>
+    <td><%= currentUser.dob.toDateString() %></td>
+  </tr>
+  <tr>
+    <td>Phone : </td>
+    <td><%= currentUser.phone %></td>
+  </tr>
+  <% if(currentUser.isSeller) { %>
+  <tr>
+    <td>GSTN : </td>
+    <td><%= currentUser.gstn %></td>
+  </tr>
+  <% } %>
+</table>
+<a href="/edit-profile" class="btn btn-primary">edit</a>
+<form class = "delete-form" action ="/delete?_method=DELETE" method = "POST">
+  <button class = "btn btn-danger">Delete</button>
+</form>
+<% include ./partials/footer %>

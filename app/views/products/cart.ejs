@@ -1,0 +1,56 @@
+<% include ../partials/header %>
+<div class="row">
+  <div class="col-sm-12">
+    <% if (!cart || cart === undefined || cart === null || cart.totalQty === 0){%>
+      <div class="form-group">
+        <label for="" class="control-label col-sm-3">Your Cart is Empty</label>
+        <a href="/products" class="btn btn-default row-group-item">Add Products to Cart</a>
+      </div>
+  </div>
+</div>
+<% } else { %>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-10">
+        <h1>Your Shopping Cart</h1>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-md-10">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Item</th>
+              <th scope="col">Price/Unit</th>
+              <th>Qty</th>
+              <th scope="col">Total Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(let i in cart.items) { %>
+            <tr>
+              <td><%= cart.items[i].item.name %></td>
+              <td><%= cart.items[i].item.price %></td>
+              <td>
+                <%= cart.items[i].qty %>
+                <a href="/cart/increase-in-cart/<%= cart.items[i].item._id %>" class="btn btn-light btn-lg"><i class="fas fa-plus"></i></a>
+                <a href="/cart/reduce-in-cart/<%= cart.items[i].item._id %>" class="btn btn-light btn-lg"><i class="fas fa-minus"></i></a>
+              </td>
+              <td><%= cart.items[i].price %></td>
+              <td>
+                <a href="/cart/remove-from-cart/<%= cart.items[i].item._id %>" class="btn btn-primary"><i class="far fa-trash-alt"></i></a>
+              </td>
+            </tr>
+            <% } %>
+            <tr>
+              <td>Total Price:<%= cart.totalPrice %></td>
+              <td>Total Qty: <%= cart.totalQty %></td>
+            </tr>
+          </tbody>
+        </table>
+        <a href="/cart/checkout" class="btn btn-primary">CheckOut</a>
+      </div>
+    </div>
+</div>
+<% } %>
+<% include ../partials/footer %>
