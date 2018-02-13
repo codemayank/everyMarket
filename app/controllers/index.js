@@ -2,12 +2,10 @@ const express = require('express'),
   router = express.Router(),
   passport = require('passport'),
   mongoose = require('mongoose'),
-  LocalStrategy = require('passport-local'),
   product = mongoose.model('Product'),
   user = mongoose.model('User'),
   async = require('async'),
   crypto = require('crypto'),
-  bcrypt = require('bcryptjs'),
   nodemailer = require('nodemailer'),
   middleware = require('./../../middlewares/middleware'),
   moment = require('moment'),
@@ -116,7 +114,21 @@ module.exports.controller = function(app) {
 
         }); //newUser Done
         newUser.save(function(err) {
+          if(err){
+            let response = appResponse.generateResponse(true, 'There was an error registering you', 500, null);
+            res.render('error', {
+              message: response.message,
+              error: response.data
+          });
+          }
           req.logIn(newUser, function(err) {
+            if(err){
+              let response = appResponse.generateResponse(true, 'There was an error logging you in', 500, null);
+                res.render('error', {
+                message: response.message,
+                error: response.data
+          });
+            }
             res.redirect('/');
           });
         });
@@ -148,12 +160,26 @@ module.exports.controller = function(app) {
         password: req.body.password,
         phone: req.body.phone,
         isSeller: true,
-        gstin: req.body.gstn
+        gstn: req.body.gstn
 
       }); //newUser Done
       newUser.save(function(err) {
+        if(err){
+          let response = appResponse.generateResponse(true, 'There was an error registering you', 500, null);
+              res.render('error', {
+              message: response.message,
+              error: response.data
+          });
+        }
         req.logIn(newUser, function(err) {
-          res.redirect('/home');
+          if(err){
+            let response = appResponse.generateResponse(true, 'There was an error logging you in', 500, null);
+                res.render('error', {
+                message: response.message,
+                error: response.data
+          });
+          }
+          res.redirect('/');
         });
       });
     } else {
@@ -178,7 +204,7 @@ module.exports.controller = function(app) {
   router.get('/logout', function(req, res) {
     req.logout();
     res.redirect('/');
-  })
+  });
 
   //----------------------Delete User Logic--------------------------
   router.delete('/delete', middleware.isLoggedIn, function(req, res) {
@@ -215,7 +241,6 @@ module.exports.controller = function(app) {
       foundUser.username = req.body.username;
       foundUser.firstName = req.body.firstName;
       foundUser.lastName = req.body.lastName;
-      foundUser.password = req.body.password;
       foundUser.email = req.body.email;
       foundUser.dob = req.body.dob;
       foundUser.phone = req.body.phone;
@@ -227,6 +252,36 @@ module.exports.controller = function(app) {
         console.log(foundUser);
         res.redirect('/');
       });
+    });
+  });
+  
+  //----------------------------Change Password-----------------
+  
+  router.get('/change-password', middleware.isLoggedIn, function(req, res){
+    res.render('changepassword');
+  });
+  
+  router.put('/change-password', middleware.isLoggedIn, function(req, res){
+    user.findOne({_id : req.user._id}, function(err, foundUser){
+      if(err){
+        let response = appResponse.generateResponse(true, "we could not change your password at this moment.. please try again", 500, null);
+          res.render('error', {
+          message: response.message,
+          error: response.status
+        });
+      }
+      if(!foundUser){
+        let response = appResponse.generateResponse(true, "You do not have permission to do that", 401, null);
+          res.render('error', {
+          message: response.message,
+          error: response.status
+        });
+      }
+        console.log(foundUser);
+        foundUser.password = req.body.password;
+        foundUser.save(function(err){
+          res.redirect('/');
+        });
     });
   });
 
@@ -241,7 +296,7 @@ module.exports.controller = function(app) {
         crypto.randomBytes(20, function(err, buf) {
           var token = buf.toString('hex');
           done(err, token);
-        })
+        });
       },
       function(token, done) {
         user.findOne({
@@ -345,12 +400,12 @@ module.exports.controller = function(app) {
         smtpTransport.sendMail(mailOptions, function(err) {
           res.redirect('/');
           done(err);
-        })
+        });
       }
     ], function(err) {
       res.redirect('/');
-    })
-  })
+    });
+  });
 
   //-------------------------------forgot password logic ends-----------
 

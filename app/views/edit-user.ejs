@@ -17,10 +17,6 @@
         <input type="text" class="form-control" name = "lastName" value= "<%= currentUser.lastName %>" id="lastName">
       </div>
       <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" name = "password" id="password">
-      </div>
-      <div class="form-group">
         <label for="email">email</label>
         <input type="email" class="form-control" name = "email" value = "<%= currentUser.email %>" id="email">
       </div>
@@ -32,7 +28,14 @@
         <label for="phone">Phone</label>
         <input type="tel" class="form-control" name = "phone" value = "<%= currentUser.phone %>" id="phone">
       </div>
+      <% if(currentUser.isSeller) { %>
+      <div class="form-group">
+        <label for="phone">GSTN</label>
+        <input type="tel" class="form-control" name = "gstn" value = "<%= currentUser.gstn %>" id="phone">
+      </div>
+      <% } %>
       <button type = "submit" value="login!" class="btn btn-primary">Submit</button>
+      <a href = "/change-password" class="btn btn-primary">Change Password</a>
     </form>
   </div>
 </div>

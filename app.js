@@ -7,7 +7,7 @@ const express = require('express'),
       methodOverride = require('method-override'),
       logger = require('morgan'),
       fs = require('fs'),
-      mongoStore = require('connect-mongo')(session);
+      mongoStore = require('connect-mongo')(session),
       path = require('path'),
       flash = require('connect-flash'),
       LocalStrategy = require('passport-local'),
@@ -89,6 +89,6 @@ fs.readdirSync('./app/controllers').forEach(function(element){
         }
 });
 
-app.listen(3000, function(){
+app.listen(process.env.PORT, process.env.IP, function(){
   console.log('The server is now running.');
 });
