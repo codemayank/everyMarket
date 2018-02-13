@@ -5,11 +5,9 @@ const mongoose = require('mongoose'),
       response = require('../middlewares/responsegen');
 
 middlewareObj.isLoggedIn = function(req, res, next){
-  console.log(req.user);
   if(req.isAuthenticated()){
-    return next;
+    return next();
   }else{
-    req.flash("error", "You Need to be logged in to do that.");
     return res.redirect('/login');
   }
 };
@@ -26,8 +24,6 @@ middlewareObj.isSeller = function(req, res, next) {
         error : appResponse.data
       });
     }
-  }else{
-    req.flash("error", "You need to be logged in to do that.");
   }
 };
 
@@ -35,7 +31,6 @@ middlewareObj.checkProductOwnership = function(req, res, next){
   if(req.isAuthenticated()){
     product.findById(req.params.id, function(err, foundProduct){
       if(err || !foundProduct){
-        req.flash("error", "Product Not Found");
         res.redirect("back");
       }else{
         if(foundProduct.seller.id.equals(req.user.id)){
@@ -46,9 +41,6 @@ middlewareObj.checkProductOwnership = function(req, res, next){
         }
       }
     });
-  }else{
-    req.flash("error", "You Need to be logged in to do that");
-    res.redirect("back");
   }
 }
 

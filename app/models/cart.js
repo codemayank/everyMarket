@@ -1,9 +1,7 @@
-const mathlib = require("./../../lib/mathlib");
-
 module.exports = function Cart(oldCart){
   this.items = oldCart.items || {};
   this.totalQty = oldCart.totalQty || 0;
-  this.totalPrice = mathlib.precisionRound(oldCart.totalPrice, 2) || 0;
+  this.totalPrice = oldCart.totalPrice || 0;
 
   this.add = function(item, id){
     var storedItem = this.items[id];
@@ -13,7 +11,8 @@ module.exports = function Cart(oldCart){
     storedItem.qty++;
     storedItem.price = storedItem.item.price * storedItem.qty;
     this.totalQty++;
-    this.totalPrice += storedItem.item.price;
+    this.totalPrice += storedItem.price;
+    this.totalPrice = this.totalPrice;
   };
 
   this.reduceByOne = function(id) {

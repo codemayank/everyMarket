@@ -1,11 +1,11 @@
 <% include ../partials/header %>
 <div class = "container">
-    <div class = "row">
+    <div class = "row" style = "display:flex; flex-wrap:wrap;">
         <%products.forEach(function(product){%>
-        <div class = "col-sm-6 col-md-3">
+        <div class = "col-sm-6 col-md-3 photo">
             <div class="thumbnail">
                 <a href="/products/show-product/<%=product._id%>"><img src = "<%=product.image%>" class="img-responsive"></a>
-            <div class = "caption">
+            <div class = "caption-full">
                 <h4><%=product.name%></h4>
                 <div class="clearfix">
                   <div class="price pull-left"><i class="fa fa-rupee-sign"></i><%= product.price%></div>

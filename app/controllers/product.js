@@ -24,6 +24,22 @@ module.exports.controller = function(app){
     });
   });
 
+  // route to list all products from a particular seller
+  router.get('/seller-product', middleware.isSeller, function(req, res){
+    product.find({"seller.username" : req.user.username}, function(err, foundProducts){
+      if(err){
+        let response = appResponse.generateResponse(true, 'We could not get the products at this moment please try again', 500, null);
+        res.render('error', {
+          message : response.message,
+          error : response.status
+        });
+      }else{
+        console.log(foundProducts);
+        res.render("products/index", {products : foundProducts, currentUser : req.user});
+      }
+    });
+  });
+
   //route to add new product
   router.post('/add-product', middleware.isSeller, function(req, res){
     let newProduct = new product({
@@ -60,14 +76,17 @@ module.exports.controller = function(app){
     if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     product.findById(req.params.id, function(err, foundProduct){
       if(err || !foundProduct){
-        console.log(err);
         let response = appResponse.generateResponse(true, "We could not find the product at this moment.. please try again", 500, null);
         res.render('error', {
           message : response.message,
           error : response.status
         });
-      // }else if(!foundProduct){
-      //     res.send('No product with that id exists please try again with a valid product id.');
+      }else if(!foundProduct){
+        let response = appResponse.generateResponse(true, "No product with that product id exists please enter valid product id.", 404, null);
+        res.render('error', {
+          message : response.message,
+          error : response.status
+        });
 
       }else{
         console.log('foundProduct');
@@ -75,7 +94,11 @@ module.exports.controller = function(app){
       }
     });
   }else{
-    res.send('invalid id get id');
+    let response = appResponse.generateResponse(true, "Invalid product id please enter correct product id", 404, null);
+    res.render('error', {
+      message : response.message,
+      error : response.status
+    });
   }
   });
 
@@ -83,8 +106,13 @@ module.exports.controller = function(app){
   //route to show edit product form
   router.get("/update-product/:id", middleware.checkProductOwnership, function(req, res){
     product.findById(req.params.id, function(err, foundProduct){
-      if(err) res.redirect("back");
-
+      if(err){
+        let response = appResponse.generateResponse(true, "We could not find the product at this moment.. please try again", 500, null);
+        res.render('error', {
+          message : response.message,
+          error : response.status
+        });
+      }
       res.render("products/edit", {product : foundProduct});
     });
   });
