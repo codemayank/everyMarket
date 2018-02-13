@@ -18,7 +18,6 @@ module.exports.controller = function(app){
             error : response.status
           });
         }else{
-          console.log(req.user);
           res.render("products/index", {products : allProducts, currentUser : req.user});
         }
     });
@@ -34,7 +33,6 @@ module.exports.controller = function(app){
           error : response.status
         });
       }else{
-        console.log(foundProducts);
         res.render("products/index", {products : foundProducts, currentUser : req.user});
       }
     });
@@ -89,7 +87,6 @@ module.exports.controller = function(app){
         });
 
       }else{
-        console.log('foundProduct');
         res.render('products/show-product', {product: foundProduct});
       }
     });

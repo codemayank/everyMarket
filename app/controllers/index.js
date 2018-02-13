@@ -237,7 +237,6 @@ module.exports.controller = function(app) {
       if (!foundUser) {
         res.send('you do not have permission to do that!');
       }
-      console.log(foundUser);
       foundUser.username = req.body.username;
       foundUser.firstName = req.body.firstName;
       foundUser.lastName = req.body.lastName;
@@ -247,9 +246,7 @@ module.exports.controller = function(app) {
       if (foundUser.isSeller) {
         foundUser.gstn = req.body.gstn;
       }
-      console.log(foundUser);
       foundUser.save(function(err) {
-        console.log(foundUser);
         res.redirect('/');
       });
     });
@@ -277,7 +274,6 @@ module.exports.controller = function(app) {
           error: response.status
         });
       }
-        console.log(foundUser);
         foundUser.password = req.body.password;
         foundUser.save(function(err){
           res.redirect('/');

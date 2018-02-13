@@ -24,7 +24,6 @@ module.exports.controller = function(app) {
         }
         cart.add(product, req.params.id);
         req.session.cart = cart;
-        console.log(req.session.cart);
         res.redirect('/products');
       });
     } else {
