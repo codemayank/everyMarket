@@ -1,0 +1,17 @@
+everyMarket is an e-commerce site with following features.
+
+1. Users can register as sellers and users.
+2. sellers can add products to the database and edit and remove the products that they have added.
+3. sellers/users can view all products and add products to cart and check out.
+
+Technologies used:
+1. Nodejs
+2. mongodb
+3. Express
+
+Templating engine : ejs.
+
+To run the app first run npm install to install all dependencies.
+The app runs on local host port 3000.
+
+Register as seller and add products to start using the app.
