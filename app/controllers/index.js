@@ -192,7 +192,7 @@ module.exports.controller = function(app) {
     passport.authenticate('local', function(err, user, info) {
       if (err) return next(err);
       if (!user) {
-        return res.send('User with that crendentials does not exist.');
+        return res.send('User with that credentials does not exist.');
       }
       req.logIn(user, function(err) {
         if (err) return next(err);
