@@ -14,6 +14,7 @@ const express = require('express'),
 
 module.exports.controller = function(app) {
 
+  //route to get the index page of the applicatin
   router.get('/', function(req, res) {
     product.find({}, function(err, allProducts) {
       if (err) {
@@ -31,6 +32,7 @@ module.exports.controller = function(app) {
     });
   });
 
+  //route to get the user - profile
   router.get('/user-profile', function(req, res) {
     if (req.user === undefined || req.user === null) {
       let response = appResponse.generateResponse(true, 'You need to be logged in to view user profile', 401, null);
@@ -46,6 +48,7 @@ module.exports.controller = function(app) {
 
   });
 
+  //route for getting user registration form
   router.get('/register/user', function(req, res) {
     if (req.user != undefined || req.user != null) {
       let response = appResponse.generateResponse(true, 'You are already registered', 401, null);
@@ -59,6 +62,7 @@ module.exports.controller = function(app) {
 
   });
 
+  //route for getting seller registration form
   router.get('/register/seller', function(req, res) {
     if (req.user != undefined || req.user != null) {
       let response = appResponse.generateResponse(true, 'You are already registered', 401, null);
@@ -72,6 +76,7 @@ module.exports.controller = function(app) {
 
   });
 
+  //route to get login form
   router.get('/login', function(req, res) {
     if (req.user != undefined || req.user != null) {
       let response = appResponse.generateResponse(true, 'You are already logged in', 401, null);
@@ -84,7 +89,8 @@ module.exports.controller = function(app) {
     }
 
   });
-  //signup logic
+
+  //route for user signup
   router.post("/register/user", function(req, res) {
     if (req.user != undefined || req.user != null) {
       let response = appResponse.generateResponse(true, 'You are already registered', 401, null);
@@ -140,6 +146,7 @@ module.exports.controller = function(app) {
 
   });
 
+  //route for seller sign up
   router.post('/register/seller', function(req, res) {
     if (req.body.username &&
       req.body.firstName &&
@@ -187,7 +194,7 @@ module.exports.controller = function(app) {
     }
   });
 
-  //login logic
+  //route for logging in
   router.post('/login', function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
       if (err) return next(err);

@@ -82,7 +82,7 @@ app.use(function(req, res, next){
   next();
 });
 
-//read model and controller files
+//read controller files
 fs.readdirSync('./app/controllers').forEach(function(element){
         if(element.indexOf('.js')){
           let route = require('./app/controllers/'+element);

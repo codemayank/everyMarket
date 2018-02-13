@@ -71,6 +71,7 @@ module.exports.controller = function(app) {
     });
   });
 
+  //route to check out
   router.get('/checkout', middleware.isLoggedIn, function(req, res) {
     let cart = new Cart(req.session.cart ? req.session.cart : {});
     cart.checkOut();
