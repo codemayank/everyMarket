@@ -72,7 +72,7 @@ module.exports.controller = function(app) {
     });
   });
 
-  router.get('/checkout', function(req, res) {
+  router.get('/checkout', middleware.isLoggedIn, function(req, res) {
     let cart = new Cart(req.session.cart ? req.session.cart : {});
     cart.checkOut();
     req.session.cart = cart;

@@ -12,8 +12,10 @@ const express = require('express'),
       flash = require('connect-flash'),
       LocalStrategy = require('passport-local'),
       validator = require('express-validator'),
+      helmet = require('helmet'),
       app = express();
 
+app.use(helmet());
 
 fs.readdirSync('./app/models').forEach(function(element){
         if(element.indexOf('.js')){
@@ -89,6 +91,6 @@ fs.readdirSync('./app/controllers').forEach(function(element){
         }
 });
 
-app.listen(process.env.PORT, process.env.IP, function(){
+app.listen(3000, function(){
   console.log('The server is now running.');
 });

@@ -67,7 +67,7 @@ module.exports.controller = function(app) {
         error: response.data
       });
     } else {
-      res.render('register');
+      res.render('sellerregister');
     }
 
   });
@@ -254,13 +254,13 @@ module.exports.controller = function(app) {
       });
     });
   });
-  
+
   //----------------------------Change Password-----------------
-  
+
   router.get('/change-password', middleware.isLoggedIn, function(req, res){
     res.render('changepassword');
   });
-  
+
   router.put('/change-password', middleware.isLoggedIn, function(req, res){
     user.findOne({_id : req.user._id}, function(err, foundUser){
       if(err){
