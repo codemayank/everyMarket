@@ -3,19 +3,19 @@ everyMarket.
 
 An e-commerce app.
 
-##Features
+## Features:
 * Users can register as sellers and users.
 * Sellers can add products to the database and edit and remove the products that they have added.
 * Sellers/users can view all products and add products to cart and check out.
 
-##Technologies used:
+## Technologies used:
 * Nodejs
 * mongodb
 * Express
 
 Templating engine : ejs.
 
-##How to download / use.
+## How to download / use.
 1. clone the repository
 
 ```bash
