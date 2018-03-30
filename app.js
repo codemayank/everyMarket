@@ -13,6 +13,7 @@ const express = require('express'),
       LocalStrategy = require('passport-local'),
       validator = require('express-validator'),
       helmet = require('helmet'),
+      port = process.env.PORT || 3000,
       app = express();
 
 app.use(helmet());
@@ -91,6 +92,6 @@ fs.readdirSync('./app/controllers').forEach(function(element){
         }
 });
 
-app.listen(3000, function(){
-  console.log('The server is now running.');
+app.listen(port, function(){
+  console.log(`The server is now running on port ${port}`);
 });
