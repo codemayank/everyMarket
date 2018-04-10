@@ -319,10 +319,10 @@ module.exports.controller = function(app) {
       },
       function(token, user, done) {
         let smtpTransport = nodemailer.createTransport({
-          service: 'SendGrid',
+          service: '', //please enter your email service here gmail, yahoo etc
           auth: {
-            user: 'myan123',
-            pass: '$~f).Vv$36\'6dApF'
+            user: '', //please enter your user name
+            pass: '' //please enter your password.
           }
         });
         let mailOptions = {
